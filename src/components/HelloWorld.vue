@@ -1,8 +1,8 @@
 <template>
   <div class="hello-header">
-    <h1>{{ msg }}</h1>
+    <h1>{{ title }}</h1>
     <p>
-      Vamos começar a cadastrar um usuário maroto para iniciar nossos testes? Sibora lá (:
+      {{ msg }}
     </p>
   </div>
 </template>
@@ -11,7 +11,8 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    title: String,
+    msg: String,
   }
 }
 </script>
@@ -25,5 +26,11 @@ export default {
 
 a {
   color: #fff;
+}
+
+@media all and (max-width: 520px) {
+  h1{
+    font-size: 8vw;
+  }
 }
 </style>

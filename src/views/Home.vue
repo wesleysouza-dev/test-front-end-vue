@@ -1,6 +1,6 @@
 <template>
     <div>
-        <section class="section-hero section-shaped my-0">
+        <section class="section-hero section-shaped my-0 d-flex flex-column justify-content-center">
             <div class="shape shape-style-1 shape-primary">
                 <span class="span-150"></span>
                 <span class="span-50"></span>
@@ -13,10 +13,21 @@
                 <span class="span-50"></span>
                 <span class="span-100"></span>
             </div>
-             <div class="container">
-                <img alt="Vue logo" src="@/assets/logo.png" class="logo-main">
-                <HelloWorld msg="Bem vindo ao Teste de Front-end com Vue JS!"/>
+             <div class="container text-center box-welcome">
+                <div class="thumb-circle d-flex align-items-center justify-content-center mx-auto mb-5">
+                     <b-img :src="require('@/assets/logo.png')" class="logo-main" alt="Vue JS"></b-img>
+                </div>
+               
+                <HelloWorld title="Bem vindo ao Teste de Front-end com Vue JS!" msg="Vamos começar a cadastrar um usuário maroto para iniciar nossos testes?"/>
+
+                <b-button pill  class="mt-4 btn-start text-uppercase">Vamos começar</b-button>
             </div>
+           
+        </section>
+
+
+        <section id="sec-add-user">
+            <AddUser title="Informações do Usuário" msg="Preencha todos os campos corretamente para que o cadastro seja realizado."/>
         </section>
 
        
@@ -27,21 +38,34 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld'
+import AddUser from '@/components/AddUser'
 
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
-  }
+    HelloWorld,
+    AddUser
+  },
+  data() {
+      return {
+        // mainProps: { src:logo }
+      }
+    }
 }
 </script>
 
 
-<style scoped>
+<style lang="scss" scoped>
+
+    .box-welcome{
+        margin-top: -100px;
+    }
+
     .section-hero {
-        height: 100vh;
-        min-height: 500px;
+        /* height: 100vh; */
+        min-height: 100vh;
+        padding: 5rem 0;
     }
 
     .section-shaped .shape-style-1.shape-primary {
@@ -61,9 +85,36 @@ export default {
     }
 
     .logo-main{
-        max-width: 120px;
+        max-width: 100%;
+        height: auto;
     }
 
+    .btn-start{
+        background: #00DD9B!important;
+        border-color: #00DD9B!important;
+        color: #3F5468!important;
+        padding: 10px 18px;
+        font-weight: 600;
+
+        &:hover,&:focus{
+            background: #00CC8E;
+        }
+    }
+
+    /* .thumb-circle{
+        width: 240px;
+        height: 240px;
+        background: #fff;
+        border-radius: 50%;
+        padding: 3rem;
+    } */
+
+    @media all and (max-width: 520px) {
+        .logo-main{
+            max-width: 80%;
+        }
+    }
+    
     #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
