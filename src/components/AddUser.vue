@@ -6,40 +6,51 @@
     </p>
 
     <div>
-        <b-form @submit="onSubmit" @reset="onReset" v-if="show" class="text-left">
+        <b-form 
+        @reset="onReset" 
+        v-if="show" 
+        novalidate 
+        @submit.prevent="submit"
+        class="text-left">
+       
+           
             <b-row>
                 <b-col cols="12">
-                    <b-form-group
-                        id="input-group-1"
-                        label="Nome completo:"
-                        label-for="input-1"
-                        description=""
-                    >
+                    <b-form-group id="example-input-group-1" label="Nome Completo" label-for="example-input-1">
                         <b-form-input
-                        id="input-name"
-                        v-model="form.name"
-                        type="text"
-                        placeholder=""
-                        required
+                        id="name"
+                        name="name"
+                        v-model="$v.form.name.$model"
+                        :state="validateFullname('name')"
+                        aria-describedby="input-name-live-feedback"
                         ></b-form-input>
+
+                        <b-form-invalid-feedback
+                        id="input-name-live-feedback"
+                        >Digite um nome e sobrenome válido</b-form-invalid-feedback>
                     </b-form-group>
                 </b-col>
 
                 <b-col cols="12" lg="3">
                     <b-form-group
                         id="input-group-1"
-                        label="Idade:"
-                        label-for="input-age"
+                        label="Data Nascimento:"
+                        label-for="input-birthdate"
                         description=""
                     >
                         <b-form-input
-                        id="input-1"
-                        v-model="form.age"
-                        type="number"
+                        id="input-birthdate"
+                        type="date"
                         placeholder=""
-                        required
+                        v-model="$v.form.birthdate.$model"
+                        :state="validateBirthDate('birthdate')"
                         ></b-form-input>
+
+                        <b-form-invalid-feedback
+                        id="input-name-live-feedback"
+                        >Selecione uma data válida - Ex: 10/03/1992</b-form-invalid-feedback>
                     </b-form-group>
+                    
                 </b-col>
 
                 <b-col cols="12" lg="3">
@@ -219,43 +230,93 @@
 </template>
 
 <script>
+import { required, minLength,  alpha, maxLength } from 'vuelidate/lib/validators'
+// import { required, sameAs, email, url, numeric } from "vuelidate/lib/validators"
+
 export default {
   name: 'AddUser',
   props: {
     title: String,
     msg: String,
   },
-  data() {
-      return {
+  components: {
+  },
+    data() {
+        return {
+            
+            form: {
+                name: '',
+                birthdate: '',
+                species: null,
+                breed: null,
+                income: null,
+                zipcode: null,
+                address: null,
+                number: null,
+                neighborhood: null,
+                city: null,
+                state: null,
+                checked: [],
+            },
+            species: [{ text: 'Selecione uma opção', value: null }, 'Cão', 'Gato'],
+            breed: [{ text: 'Aguardando espécie...', value: null }, '', ''],
+            show: true,
+            show_alerts: false,
+        }
+    },
+    validations: {
+       
         form: {
-          email: '',
-          name: '',
-          species: null,
-          breed: null,
-          income: null,
-          zipcode: null,
-          address: null,
-          number: null,
-          neighborhood: null,
-          city: null,
-          state: null,
-          checked: [],
-        },
-        species: [{ text: 'Selecione uma opção', value: null }, 'Cão', 'Gato'],
-        breed: [{ text: 'Aguardando espécie...', value: null }, '', ''],
-        show: true
-      }
+            name: {
+                required,
+                minLength: minLength(4),
+                alpha
+            },
+            birthdate: {
+                minLength: minLength(10),
+                maxLength: maxLength(10),
+                // minLength: minLength(4)
+            }
+        }
     },
     methods: {
-      onSubmit(event) {
-        event.preventDefault()
-        alert(JSON.stringify(this.form))
-      },
+
+        validateFullname(name) {
+            if (this.form.name.length > 0) {  
+                let fullName = this.form.name;
+                let splitName = fullName.split(' ');
+            
+                if (splitName[1] !== '' && splitName[1] !== undefined) {
+                    let { $dirty, $error } = this.$v.form[name];
+                    $error = false;
+                    return $dirty ? !$error : null;
+                }
+                return false;
+            }
+        },
+        
+        
+        validateBirthDate(birthdate) {
+           let { $dirty, $error } = this.$v.form[birthdate];
+        //    console.log($dirty);
+           return $dirty ? !$error : null;
+        },
+
+        
+        onSubmit() {
+            this.$validator.validateAll().then(result => {
+                if (!result) {
+                return;
+                }
+
+                alert("Form submitted!");
+            });
+        },
       onReset(event) {
         event.preventDefault()
         // Reset our form values
         this.form.email = ''
-        this.form.name = ''
+        this.form.name = null
         this.form.species = null
         this.form.breed = null
         this.form.icome = null
@@ -268,9 +329,11 @@ export default {
         this.form.checked = []
         // Trick to reset/clear native browser form validation state
         this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+         this.$nextTick(() => {
+            this.$validator.reset();
+            this.show = true
+        });
+       
       }
     }
 }
@@ -283,5 +346,9 @@ export default {
     }
     .text-bold{
         font-weight: bold;
+    }
+
+    .form-group--error input, .form-group--error textarea, .form-group--error input:focus, .form-group--error input:hover{
+        border-color: #f79483;
     }
 </style>
