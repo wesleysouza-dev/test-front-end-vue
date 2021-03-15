@@ -3,7 +3,7 @@
     <nav class="container nav-main">
       <ul class="d-flex justify-content-center">
         <li>
-          <router-link to="/">Cadastro</router-link>
+          <router-link to="/">Usuário</router-link>
         </li>
         <li>
           <router-link to="/paises">Países</router-link>
@@ -35,9 +35,13 @@ export default {
 
 <style lang="scss" scoped>
 
-nav ul{
-  list-style: none;
-  padding: 0;
+nav {
+  position: relative;
+  z-index: 1;
+  ul{
+    list-style: none;
+    padding: 0;
+  }
 }
 
 .nav-main{

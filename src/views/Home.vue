@@ -18,15 +18,15 @@
                      <b-img :src="require('@/assets/logo.png')" class="logo-main" alt="Vue JS"></b-img>
                 </div>
                
-                <HelloWorld title="Bem vindo ao Teste de Front-end com Vue JS!" msg="Vamos começar a cadastrar um usuário maroto para iniciar nossos testes?"/>
+                <HelloWorld title="Bem vindo ao Teste de Front-end com Vue JS!" msg="Vamos começar a cadastrar um usuário para iniciar nossos testes?"/>
 
-                <b-button pill  class="mt-4 btn-start text-uppercase">Vamos começar</b-button>
+                <a class="mt-4 btn btn-pill btn-start text-uppercase" href="#sec-add-user">Vamos começar</a>
             </div>
            
         </section>
 
 
-        <section id="sec-add-user">
+        <section id="sec-add-user" ref="sec-add-user">
             <AddUser title="Informações do Usuário" msg="Preencha todos os campos corretamente para que o cadastro seja realizado."/>
         </section>
 
@@ -51,7 +51,13 @@ export default {
       return {
         // mainProps: { src:logo }
       }
-    }
+    },
+    methods: {
+          scrollAnimate(refName) {
+            const element = this.$ref[refName];
+            element.scrollIntoView();
+        },
+      },
 }
 </script>
 
