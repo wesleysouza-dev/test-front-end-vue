@@ -1,28 +1,19 @@
-# test-vue
+# Teste em VueJS
 
-## Project setup
+## Instalar dependência
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Inicializar servidor
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Observações
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 =======
-# test-front-end-vue
+## Descritivo
 Aplicação web para fins de teste, construída com Vue JS.
 
