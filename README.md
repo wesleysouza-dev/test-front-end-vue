@@ -1,29 +1,25 @@
-<<<<<<< HEAD
-# test-vue
+# Teste em VueJS
 
-## Project setup
+## Instalar dependência
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Inicializar servidor
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
 
-### Lints and fixes files
-```
-npm run lint
-```
+### Observações
+Hosts liberados para API do GoogleMaps
+- localhost:8081
+- localhost:8080
+- localhost
+- 127.0.0.1
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
 =======
-# test-front-end-vue
+
+## Descritivo
 Aplicação web para fins de teste, construída com Vue JS.
->>>>>>> 808805dd264c8922e7a6cd58b053a799707e3ada
+
